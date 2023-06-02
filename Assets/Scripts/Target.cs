@@ -6,22 +6,25 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     private Rigidbody targetRb;
+    private GameManager gameManager;
+
+    public int score;
+    public ParticleSystem explosion;
     void Start()
     {
         targetRb = GetComponent<Rigidbody>();
         transform.position = randomPos();
         targetRb.AddForce(Vector3.up * Random.Range(15, 20), ForceMode.Impulse);
         targetRb.AddTorque(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
-    }
 
-    void Update()
-    {
-
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     private void OnMouseDown()
     {
         Destroy(gameObject);
+        Instantiate(explosion, transform.position, explosion.transform.rotation);
+        gameManager.ScoreRecord(score);
     }
     private void OnTriggerEnter(Collider other)
     {
