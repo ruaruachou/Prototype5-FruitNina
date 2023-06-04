@@ -7,3 +7,5 @@
 理解面向对象：在每个不同的Target上加入score参数，然后在AddScore（score）中调用
 
 粒子使用方式：如果是会消失的物体，可以挂在Prefab上
+
+Button需要加入Component.Standalone Input Module才能生效

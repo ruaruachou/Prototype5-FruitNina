@@ -12,6 +12,7 @@ public class Target : MonoBehaviour
     public ParticleSystem explosion;
     void Start()
     {
+        //Target生成和运动
         targetRb = GetComponent<Rigidbody>();
         transform.position = randomPos();
         targetRb.AddForce(Vector3.up * Random.Range(15, 20), ForceMode.Impulse);
@@ -22,13 +23,26 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-        Instantiate(explosion, transform.position, explosion.transform.rotation);
-        gameManager.ScoreRecord(score);
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosion, transform.position, explosion.transform.rotation);
+            gameManager.ScoreRecord(score);
+            //游戏失败原因：点击了Bad目标
+            if (gameObject.CompareTag("Bad"))
+            {
+                gameManager.GameOver();
+            }
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        //游戏失败原因：漏掉正确目标
+        if (!gameObject.CompareTag("Bad"))
+        {
+            gameManager.GameOver();
+        }
     }
     Vector3 randomPos()
     //从4个随机Pos返回一个
