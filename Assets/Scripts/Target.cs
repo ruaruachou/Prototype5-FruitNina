@@ -21,27 +21,30 @@ public class Target : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
-    private void OnMouseDown()
-    {
-        if (gameManager.isGameActive)
-        {
-            Destroy(gameObject);
-            Instantiate(explosion, transform.position, explosion.transform.rotation);
-            gameManager.ScoreRecord(score);
-            //游戏失败原因：点击了Bad目标
-            if (gameObject.CompareTag("Bad"))
-            {
-                gameManager.GameOver();
-            }
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
-        //游戏失败原因：漏掉正确目标
-        if (!gameObject.CompareTag("Bad"))
+        //漏掉正确目标
+        if (other.gameObject.CompareTag("Bottom"))
         {
-            gameManager.GameOver();
+            if (!gameObject.CompareTag("Bad"))
+            {
+                gameManager.UpdateLife(-1);
+            }
+        }
+        if (other.gameObject.CompareTag("Mouse"))
+        {
+            if (gameManager.isGameActive && !gameManager.isGamePaused)
+            {
+                Destroy(gameObject);
+                Instantiate(explosion, transform.position, explosion.transform.rotation);
+                gameManager.ScoreRecord(score);
+                //触碰到Bad目标
+                if (gameObject.CompareTag("Bad"))
+                {
+                    gameManager.UpdateLife(-1);
+                }
+            }
         }
     }
     Vector3 randomPos()
@@ -55,7 +58,7 @@ public class Target : MonoBehaviour
             new Vector3(1f, -6f, 0),
             new Vector3(3.5f, -6f, 0)
             };
-        return  posArray[index];
+        return posArray[index];
     }
 }
 

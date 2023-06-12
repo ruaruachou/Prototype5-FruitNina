@@ -7,6 +7,8 @@ public class Difficulty : MonoBehaviour
 {
     private Button button;
     private GameManager gameManager;
+
+    //public int difficultyLevel;
     void Start()
     {
         //因为获取的是自身的Button组件，所以无需Find
@@ -18,10 +20,6 @@ public class Difficulty : MonoBehaviour
         
     }
 
-    void Update()
-    {
-        
-    }
     void SetDifficulty()
     {
         //调用开始游戏方法
