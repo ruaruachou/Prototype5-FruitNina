@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bad
   - Mouse
+  - Bottom
   layers:
   - Default
   - TransparentFX

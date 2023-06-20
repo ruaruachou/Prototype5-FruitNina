@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class MouseTail : MonoBehaviour
 {
+    private GameManager gameManager;
     private BoxCollider mouseBC;
     void Start()
     {
         mouseBC = GetComponent<BoxCollider>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -19,13 +21,16 @@ public class MouseTail : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
         // 按住鼠标时，更新物体的位置
-        if (Input.GetMouseButton(0))
+        if (gameManager.isGameActive&gameManager.isGamePaused==false)
         {
-            mouseBC.enabled = true;
-            transform.position = new Vector3(worldPosition.x, worldPosition.y, transform.position.z);
+            if (Input.GetMouseButton(0))
+            {
+                mouseBC.enabled = true;
+                transform.position = new Vector3(worldPosition.x, worldPosition.y, transform.position.z);
+            }
+            //松开时，碰撞器关闭
+            else
+                mouseBC.enabled = false;
         }
-        //松开时，碰撞器关闭
-        else
-            mouseBC.enabled = false;
     }
 }

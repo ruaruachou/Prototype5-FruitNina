@@ -18,7 +18,7 @@ public class Target : MonoBehaviour
         targetRb.AddForce(Vector3.up * Random.Range(15, 20), ForceMode.Impulse);
         targetRb.AddTorque(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
 
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();//通过代码获取其他代码组件
     }
 
     private void OnTriggerEnter(Collider other)

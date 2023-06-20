@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI timeText;
+    public TextMeshProUGUI recordText;
     public Button restartButton;
     private Button menuButton;
     public GameObject menuPanel;
@@ -66,6 +67,8 @@ public class GameManager : MonoBehaviour
         //分数记录方法，addScore参数在每个Target上单独传入，在GameManager中汇总分数
         score += addScore;//计算分数
         scoreText.text = "Score:" + score;//显示分数
+        recordText.text = "Record: " + RecordManager.Instance.recordScore;
+  
     }
 
     public void GameOver()
@@ -74,6 +77,15 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         gameOverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+       
+            
+            if (score > RecordManager.Instance.recordScore) 
+            {
+                RecordManager.Instance.recordScore = score;
+            recordText.text = "Record: " + RecordManager.Instance.recordScore;
+            RecordManager.Instance.SaveRecord();
+        }
+        Debug.Log(RecordManager.Instance.recordScore);
     }
     public void UpdateLife(int liveChange)
     {

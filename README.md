@@ -25,3 +25,8 @@ Button.Onclick.AddListener在Start()中
 >2.获取MousePos鼠标（屏幕坐标）并转为世界坐标  
 
 >3.空物体坐标为MousePos，并为其添加Trigger
+
+通过单例模式来储存游戏数据
+>1.先在Awake中实例化  
+>2.如果在切换场景时保留，则需要用DontDestroyOnLOad  
+>3.如果在退出和重进游戏时保留，则需要使用JSON数据转化的方法
