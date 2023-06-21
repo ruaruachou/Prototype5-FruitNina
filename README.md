@@ -28,5 +28,5 @@ Button.Onclick.AddListener在Start()中
 
 通过单例模式来储存游戏数据
 >1.先在Awake中实例化  
->2.如果在切换场景时保留，则需要用DontDestroyOnLOad  
+>2.如果在切换场景时保留，则需要用DontDestroyOnLoad  
 >3.如果在退出和重进游戏时保留，则需要使用JSON数据转化的方法
